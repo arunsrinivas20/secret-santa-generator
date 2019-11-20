@@ -1,0 +1,22 @@
+{
+    "Person1": {
+        "email": "person1@gmailcom",
+        "wishlist": ["Item1", "Item2", "Item3"],
+        "restrictions": ["Person4", "Person2"]
+    },
+    "Person2": {
+        "email": "person2@gmailcom",
+        "wishlist": ["Item11", "Item21", "Item31"],
+        "restrictions": ["Person1"]
+    },
+    "Person3": {
+        "email": "person3@gmailcom",
+        "wishlist": ["Item12", "Item22", "Item32"],
+        "restrictions": []
+    },
+    "Person4": {
+        "email": "person4@gmailcom",
+        "wishlist": ["Item13", "Item23", "Item33"],
+        "restrictions": ["Person1"]
+    }
+}
