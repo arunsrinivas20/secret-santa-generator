@@ -10,6 +10,7 @@ from email.mime.text import MIMEText
 
 EMAIL_SENDER = None
 PASSWORD = None
+EMAIL_PORT = 465  
 
 class Graph:
     def __init__(self, people_info):
@@ -43,8 +44,6 @@ class Graph:
 
     def assign_secret_santa(self):
         assignments = {}
-
-        s = self.edges['Varun']
 
         while self.vertices:
             person = self.get_person_with_fewest_edges()
@@ -96,28 +95,26 @@ def wishlist_str(wishlist):
     return res
 
 def email_assignments(person_info, assignments):
-    port = 465  
-
     for (person, assignment) in assignments.items():
         email = person_info[person]['email']
-        wishlist = person_info[person]['wishlist']
+        wishlist = person_info[assignment]['wishlist']
 
         body = f"""
-            Dear {person},
+Dear {person},
 
-            This email contains your Secret Santa assignment and their wishlist. Good luck and happy holidays!
+This email contains your Secret Santa assignment and their wishlist. Good luck and happy holidays!
 
-            Assignment: {assignment}
-            Wishlist (IN ORDER): {wishlist_str(wishlist)}
+Assignment: {assignment}
+Wishlist (IN ORDER): {wishlist_str(wishlist)}
 
-            Thanks,
-            Your Friendly Email Service
-        """
+Thanks,
+Your Friendly Email Service
+"""
 
         print(body)
         # message = MIMEMultipart()
         # message["To"] = email
-        # message["Subject"] = f'Ski Trip - Secret Santa Assignment'
+        # message["Subject"] = f'Ski Trip 3K20 - Secret Santa Assignment'
 
         # message.attach(MIMEText(body, "plain"))
 
@@ -125,7 +122,7 @@ def email_assignments(person_info, assignments):
 
         # context = ssl.create_default_context()
 
-        # with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
+        # with smtplib.SMTP_SSL("smtp.gmail.com", EMAIL_PORT, context=context) as server:
         #     server.login(EMAIL_SENDER, PASSWORD)
         #     server.sendmail(EMAIL_SENDER, email, text)
 
@@ -147,5 +144,6 @@ if __name__ == "__main__":
 
     secret_santa_assignments = g.assign_secret_santa()
 
-    print_format_assignments(secret_santa_assignments)
-    #email_assignments(people_info, secret_santa_assignments)
+    #print_format_assignments(secret_santa_assignments)
+
+    email_assignments(people_info, secret_santa_assignments)
